@@ -9,11 +9,17 @@ import streamlit as st
 
 from utils import retrieve_github_repo_info
 
-GITHUB_TOKEN = os.getenv("GH_API_KEY")
+######################################################################
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", st.secrets['GOOGLE_API_KEY'])
+GITHUB_TOKEN = os.getenv("GH_API_KEY", st.secrets['GH_API_KEY'])
 
+genai.configure(api_key=GOOGLE_API_KEY)
+
+######################################################################
 if "repo" not in st.session_state:
     st.session_state.repo = None
 
+######################################################################
 def generate_response(prompt):
     stream = st.session_state.chat_model.send_message(prompt, stream=True)
     for chunk in stream:
@@ -21,7 +27,7 @@ def generate_response(prompt):
             time.sleep(0.01)
             yield char
 
-##############
+######################################################################
 st.set_page_config(page_title="Repo Explainer",
                    page_icon="📦")
 
@@ -33,6 +39,7 @@ github_url = repo_box.text_input("Enter a GitHub URL:")
 if "github.com" not in github_url:
     st.stop()
 
+######################################################################
 if st.session_state.repo is None:
     with st.spinner("Fetching repository information..."):
         st.session_state["repo"] = retrieve_github_repo_info(github_url, token=GITHUB_TOKEN)
@@ -46,6 +53,7 @@ if st.session_state.repo is None:
 
     st.session_state.chat_model = model.start_chat(history=[])
 
+######################################################################
 if st.session_state["repo"] is not None:
     repo_box.empty()
 
