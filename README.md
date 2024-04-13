@@ -1,5 +1,9 @@
 # Repo Explainer 📦
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://repo-explainer.streamlit.app/)
 
+<p align="center">
+  <img src="demo.gif" alt="Demo 1" width="60%" style="border: 3px solid black;"/>
+</p>
 
 This Streamlit application leverages the power of Google's Generative AI and the Gemini-1.5-pro-latest model to provide insights and explanations about GitHub repositories. Simply input a GitHub URL, and the app will analyze the repository's structure and content, generating a comprehensive summary.
 
