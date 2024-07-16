@@ -44,6 +44,7 @@ if st.session_state.repo is None:
     with st.spinner("Fetching repository information..."):
         st.session_state["repo"] = retrieve_github_repo_info(github_url, token=GITHUB_TOKEN)
 
+    print(st.session_state["repo"])
     model = genai.GenerativeModel("gemini-1.5-pro-latest",
                                   system_instruction="You are a coding expert who analyses GitHub repos. "
                                                     "When replying, be succinct and polite. Avoid markdown title headers. "
